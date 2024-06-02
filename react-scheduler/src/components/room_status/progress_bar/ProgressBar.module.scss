@@ -1,0 +1,40 @@
+.progressBar {
+  width: 75%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+
+  div[data-test-id="CircularProgressbarWithChildren__children"] {
+    margin-top: unset !important;
+    inset: 0;
+  }
+
+  .statusContainer {
+    background: radial-gradient(
+      circle,
+      var(--thm-gradient-end) 15%,
+      var(--thm-gradient-start) 65%
+    );
+    z-index: 2;
+
+    h1 {
+      font-size: 32px;
+      color: var(--clr-white);
+    }
+
+    p {
+      margin-top: 0.5rem;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--clr-blue);
+    }
+
+    .errorMsg {
+      color: var(--clr-red);
+    }
+  }
+}
