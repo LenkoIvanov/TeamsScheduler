@@ -14,6 +14,7 @@
 
   --item-gap-size: 1.25rem;
   --page-p: 1rem;
+  --hour-in-px: 120px;
 }
 
 *,
@@ -24,10 +25,12 @@
 
 body {
   min-height: 100vh;
+  width: 100%;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   margin: 0;
-  padding: 1rem 1.6rem;
+  padding: var(--page-p);
+  background-color: gray;
 }
 
 h1,
