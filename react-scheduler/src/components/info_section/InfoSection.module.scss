@@ -4,4 +4,17 @@
   & > * {
     margin-bottom: 5px;
   }
+
+  .roomName {
+    color: var(--light-blue);
+  }
+
+  .status {
+    &__booked {
+      color: var(--light-red);
+    }
+    &__free {
+      color: var(--light-green);
+    }
+  }
 }

@@ -18,8 +18,19 @@ export const InfoSection = (props: InfoSectionProps) => {
 
   return (
     <div className={styles.infoSection}>
-      <p>Room: {roomName}</p>
-      <p>Status: {handleStatusMessage()}</p>
+      <p>
+        Room: <span className={styles.roomName}>{roomName}</span>
+      </p>
+      <p>
+        Status:{" "}
+        <span
+          className={`${
+            currentEvent ? styles.status__booked : styles.status__free
+          }`}
+        >
+          {handleStatusMessage()}
+        </span>
+      </p>
       <Button content="Book now" onClick={() => {}} theme="green" />
     </div>
   );
