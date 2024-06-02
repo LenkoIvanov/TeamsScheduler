@@ -8,7 +8,6 @@ export const AppContainer = () => {
   return (
     <div className={styles.appContainer}>
       <RoomStatus
-        roomName="Conference Room"
         events={TestData}
         currentMoment={new Date()}
         isError={false}

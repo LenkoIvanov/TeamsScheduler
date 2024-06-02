@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { EventInfo } from "../../types/EventInfo";
 import {
   getOngoingEventIdx,
@@ -13,19 +13,14 @@ interface RoomStatusProps {
   currentMoment: Date;
   isLoading: boolean;
   isError: boolean;
-  roomName: string;
 }
 
 export const RoomStatus = (props: RoomStatusProps) => {
   const initProgressBarValue = 100;
-  const { events, currentMoment, isLoading, isError, roomName } = props;
+  const { events, currentMoment, isLoading, isError } = props;
 
   const [currentEvent, setCurrentEvent] = useState<EventInfo | null>(null);
   const [progressBarValue, setProgressBarValue] = useState<number>(100);
-
-  useEffect(() => {
-    resetRoomState();
-  }, [roomName]);
 
   const resetRoomState = () => {
     setCurrentEvent(null);
