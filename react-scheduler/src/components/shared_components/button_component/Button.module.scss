@@ -1,4 +1,5 @@
 .button {
+  display: block;
   text-align: center;
   padding: 1rem;
   border-radius: 20px;
@@ -8,9 +9,17 @@
 
   &[data-theme="purple"] {
     background-color: var(--light-purple);
+
+    &:hover {
+      background-color: var(--dark-purple);
+    }
   }
 
   &[data-theme="green"] {
     background-color: var(--light-green);
+
+    &:hover {
+      background-color: var(--dark-green);
+    }
   }
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { ModalSkeleton } from "../modal_skeleton/ModalSkeleton";
 import { oneMinuteInMiliseconds } from "../../../helpers/constants";
+import { Button } from "../../shared_components/button_component/Button";
 import styles from "./NewMeetingModal.module.scss";
 
 interface NewMeetingModalProps {
@@ -51,9 +52,11 @@ export const NewMeetingModal = (props: NewMeetingModalProps) => {
         </select>
       </h3>
       <div className={styles.btnSection}>
-        <button onClick={() => createRoomEvent(selectedOption)}>
-          Book now {/* TODO: Add a button component later */}
-        </button>
+        <Button
+          onClick={() => createRoomEvent(selectedOption)}
+          content="Book now"
+          theme="green"
+        ></Button>
       </div>
     </ModalSkeleton>
   );

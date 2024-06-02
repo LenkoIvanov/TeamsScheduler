@@ -1,4 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./ModalSkeleton.module.scss";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface ModalSkeletonProps {
   title: string;
@@ -14,10 +16,11 @@ export const ModalSkeleton = (props: ModalSkeletonProps) => {
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
           <h2 className={styles.title}>{title}</h2>
-          <i onClick={handleModalClose} className={styles.icon}>
-            x
-          </i>
-          {/* TODO: Add a suitable icon*/}
+          <FontAwesomeIcon
+            icon={faXmark}
+            className={styles.icon}
+            onClick={handleModalClose}
+          />
         </div>
         <div className={styles.modalContents}>{children}</div>
       </div>

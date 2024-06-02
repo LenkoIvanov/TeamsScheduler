@@ -6,7 +6,6 @@
 .infoRow {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
 
   span {
@@ -24,7 +23,6 @@
 }
 
 .btnSection {
-  button {
-    margin-inline: auto;
-  }
+  width: 50%;
+  margin-inline: auto;
 }

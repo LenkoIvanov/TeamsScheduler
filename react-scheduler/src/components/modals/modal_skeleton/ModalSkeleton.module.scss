@@ -16,20 +16,19 @@
   background-color: var(--dark-purple);
   color: var(--white);
   z-index: 10;
-  padding: 1.5rem 2.5rem 3rem 2.5rem;
+  padding: 1rem 2.5rem 3rem 2.5rem;
   border-radius: 25px;
 
   .modalHeader {
-    position: relative;
+    display: flex;
+    align-items: center;
     text-align: left;
     margin-bottom: var(--item-gap-size);
 
     .icon {
       cursor: pointer;
-      height: 25px;
-      position: absolute;
-      left: 325px;
-      bottom: 30px;
+      margin-left: auto;
+      height: 20px;
     }
 
     .title {
@@ -39,7 +38,6 @@
 
   .modalContents {
     & > * {
-      margin: 0;
       font-size: 1.25rem;
     }
 
