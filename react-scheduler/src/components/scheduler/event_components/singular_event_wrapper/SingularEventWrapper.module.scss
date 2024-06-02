@@ -1,0 +1,6 @@
+.eventWrapper {
+  position: absolute;
+  width: 80%;
+  margin-left: calc(var(--item-gap-size) * 2.5);
+  margin-right: var(--item-gap-size);
+}
