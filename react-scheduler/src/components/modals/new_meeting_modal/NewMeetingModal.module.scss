@@ -1,0 +1,30 @@
+.startTime {
+  color: black;
+  padding: 5px;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  span {
+    color: black;
+  }
+
+  select {
+    width: 75px;
+    height: 25px;
+
+    &:focus-visible {
+      outline: black auto 1px;
+    }
+  }
+}
+
+.btnSection {
+  button {
+    margin-inline: auto;
+  }
+}

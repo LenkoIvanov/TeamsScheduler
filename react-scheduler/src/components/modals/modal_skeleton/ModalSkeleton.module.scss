@@ -1,0 +1,50 @@
+.backdrop {
+  background-color: var(--white);
+  position: fixed;
+  inset: 0;
+  opacity: 0.2;
+  z-index: 5;
+}
+
+.modal {
+  width: 25rem;
+  height: fit-content;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  color: black;
+  z-index: 10;
+  padding: 1.5rem 2.5rem 3rem 2.5rem;
+  border-radius: 25px;
+
+  .modalHeader {
+    position: relative;
+    text-align: left;
+    margin-bottom: var(--item-gap-size);
+
+    .icon {
+      cursor: pointer;
+      height: 25px;
+      position: absolute;
+      left: 325px;
+      bottom: 30px;
+    }
+
+    .title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .modalContents {
+    & > * {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    & > * + * {
+      margin-top: var(--item-gap-size);
+    }
+  }
+}

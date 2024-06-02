@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { EventInfo } from "../../../../types/EventInfo";
 import styles from "./Event.module.scss";
+import { MeetingInfoModal } from "../../../modals/meeting_info_modal/MeetingInfoModal";
 
 interface EventProps {
   eventInfo: EventInfo;
