@@ -8,8 +8,6 @@ import styles from "./ProgressBar.module.scss";
 
 interface ProgressBarProps {
   value: number;
-  roomName: string;
-  roomStatus: string;
   isBooked: boolean;
   isLoading: boolean;
   isError: boolean;

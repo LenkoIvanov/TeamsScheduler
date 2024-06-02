@@ -1,4 +1,5 @@
 import { TestData } from "../../helpers/TestData";
+import { InfoSection } from "../info_section/InfoSection";
 import { RoomStatus } from "../room_status/RoomStatus";
 import { Scheduler } from "../scheduler/scheduler_component/Scheduler";
 import styles from "./AppContainer.module.scss";
@@ -10,11 +11,14 @@ export const AppContainer = () => {
         roomName="Conference Room"
         events={TestData}
         currentMoment={new Date()}
-        isError={true}
+        isError={false}
         isLoading={false}
-        handleModalOpen={() => {}}
       />
-      <div></div> {/* TODO: Status section and booking button */}
+      <InfoSection
+        currentEvent={null}
+        events={TestData}
+        roomName="Conference room"
+      />
       <Scheduler events={TestData} />
     </div>
   );

@@ -3,7 +3,6 @@ import { EventInfo } from "../../types/EventInfo";
 import {
   getOngoingEventIdx,
   handleTimeUntilFree,
-  roomStatusMessage,
 } from "../../helpers/room_status_helper";
 import styles from "./RoomStatus.module.scss";
 import { ColorWaves } from "./color_waves/ColorWaves";
@@ -14,7 +13,6 @@ interface RoomStatusProps {
   currentMoment: Date;
   isLoading: boolean;
   isError: boolean;
-  handleModalOpen: () => void;
   roomName: string;
 }
 
@@ -58,10 +56,6 @@ export const RoomStatus = (props: RoomStatusProps) => {
     if (currentEventIdx !== -1) setCurrentEvent(events[currentEventIdx]);
   };
 
-  const handleStatusMessage = () => {
-    return roomStatusMessage(events, currentEvent).statusMsg;
-  };
-
   handleRoomAvailability();
   handleProgressBarUpdate();
   return (
@@ -69,8 +63,6 @@ export const RoomStatus = (props: RoomStatusProps) => {
       <ColorWaves isBooked={!!currentEvent} />
       <ProgressBar
         value={progressBarValue}
-        roomName={roomName.toUpperCase()}
-        roomStatus={handleStatusMessage()}
         isBooked={!!currentEvent}
         isLoading={isLoading}
         isError={isError}

@@ -1,0 +1,16 @@
+.button {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 20px;
+  height: fit-content;
+  cursor: pointer;
+  color: var(--white);
+
+  &[data-theme="purple"] {
+    background-color: var(--light-purple);
+  }
+
+  &[data-theme="green"] {
+    background-color: var(--light-green);
+  }
+}
