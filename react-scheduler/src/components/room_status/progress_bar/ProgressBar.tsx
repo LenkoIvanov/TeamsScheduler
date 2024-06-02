@@ -16,19 +16,16 @@ interface ProgressBarProps {
 }
 
 export const ProgressBar = (props: ProgressBarProps) => {
-  const { value, roomName, roomStatus, isBooked, isLoading, isError } = props;
+  const { value, isBooked, isLoading, isError } = props;
   const strokeWidth = 5;
 
   const handleRoomStatusMessages = (): JSX.Element => {
     if (isLoading) return <LoadingComponent />;
     if (isError)
       return <p className={styles.errorMsg}>An error has occurred!</p>;
-    return (
-      <>
-        {!isBooked && <p>Book now!</p>}
-        <p>{roomStatus}</p>
-      </>
-    );
+    if (isBooked)
+      return <p className={styles.inProgress}>Meeting in progress</p>;
+    return <p className={styles.available}>Available</p>;
   };
 
   return (
@@ -45,7 +42,6 @@ export const ProgressBar = (props: ProgressBarProps) => {
       >
         <RadialSeparators count={60} />
         <div className={styles.statusContainer}>
-          <h1>{roomName}</h1>
           {handleRoomStatusMessages()}
         </div>
       </CircularProgressbarWithChildren>

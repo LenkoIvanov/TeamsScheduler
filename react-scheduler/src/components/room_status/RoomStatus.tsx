@@ -20,14 +20,7 @@ interface RoomStatusProps {
 
 export const RoomStatus = (props: RoomStatusProps) => {
   const initProgressBarValue = 100;
-  const {
-    events,
-    currentMoment,
-    isLoading,
-    isError,
-    roomName,
-    handleModalOpen,
-  } = props;
+  const { events, currentMoment, isLoading, isError, roomName } = props;
 
   const [currentEvent, setCurrentEvent] = useState<EventInfo | null>(null);
   const [progressBarValue, setProgressBarValue] = useState<number>(100);
@@ -69,15 +62,10 @@ export const RoomStatus = (props: RoomStatusProps) => {
     return roomStatusMessage(events, currentEvent).statusMsg;
   };
 
-  const handleRoomStatusClick = () => {
-    if (currentEvent || isError || isLoading) return;
-    handleModalOpen();
-  };
-
   handleRoomAvailability();
   handleProgressBarUpdate();
   return (
-    <div className={styles.roomStatusWrapper} onClick={handleRoomStatusClick}>
+    <div className={styles.roomStatusWrapper}>
       <ColorWaves isBooked={!!currentEvent} />
       <ProgressBar
         value={progressBarValue}

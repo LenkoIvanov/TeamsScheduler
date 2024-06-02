@@ -10,10 +10,11 @@ export const AppContainer = () => {
         roomName="Conference Room"
         events={TestData}
         currentMoment={new Date()}
-        isError={false}
+        isError={true}
         isLoading={false}
         handleModalOpen={() => {}}
       />
+      <div></div> {/* TODO: Status section and booking button */}
       <Scheduler events={TestData} />
     </div>
   );

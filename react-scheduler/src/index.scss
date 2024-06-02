@@ -24,13 +24,16 @@
 }
 
 body {
-  min-height: 100vh;
-  width: 100%;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
   margin: 0;
+  background-color: var(--dark-purple);
+}
+
+#root {
+  width: 100%;
+  max-width: 1400px;
   padding: var(--page-p);
-  background-color: gray;
+  margin: auto;
+  color: var(--white);
 }
 
 h1,

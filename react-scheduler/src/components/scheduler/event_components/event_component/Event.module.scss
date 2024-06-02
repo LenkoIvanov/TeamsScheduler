@@ -1,11 +1,10 @@
 .eventContainer {
   height: 100%;
-  border-style: solid;
-  border-color: var(--light-purple);
-  border-width: 2px 2px 2px 15px;
   border-radius: 8px;
-  background-color: var(--light-blue);
+  border: 1px solid var(--light-purple);
+  background-color: var(--light-purple);
   color: var(--white);
+  text-align: center;
   text-overflow: ellipsis;
   text-wrap: nowrap;
   overflow: hidden;
@@ -14,11 +13,5 @@
 
   .title {
     padding-bottom: 3px;
-  }
-
-  @container (max-height: 20px) {
-    .title {
-      line-height: 1;
-    }
   }
 }

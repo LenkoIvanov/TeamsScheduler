@@ -14,27 +14,24 @@
   }
 
   .statusContainer {
-    background: radial-gradient(
-      circle,
-      var(--thm-gradient-end) 15%,
-      var(--thm-gradient-start) 65%
-    );
     z-index: 2;
 
-    h1 {
+    p {
       font-size: 32px;
-      color: var(--clr-white);
+      font-weight: bold;
     }
 
-    p {
-      margin-top: 0.5rem;
-      font-size: 18px;
-      font-weight: bold;
-      color: var(--clr-blue);
+    .available {
+      color: var(--light-green);
+    }
+
+    .inProgress {
+      color: var(--dark-red);
     }
 
     .errorMsg {
-      color: var(--clr-red);
+      color: var(--light-red);
+      font-size: 28px;
     }
   }
 }

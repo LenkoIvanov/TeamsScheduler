@@ -11,11 +11,11 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: darkgray;
+    background-color: var(--dark-blue);
     border-radius: 10px;
 
     &:hover {
-      background-color: slategray;
+      background-color: var(--light-blue);
     }
   }
 }
