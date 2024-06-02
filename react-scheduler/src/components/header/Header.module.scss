@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  align-items: center;
+
+  .dateInfo {
+    margin-left: auto;
+    text-align: end;
+    color: var(--clr-white);
+
+    p {
+      margin: auto;
+    }
+
+    .date {
+      color: var(--clr-primary);
+    }
+  }
+}
