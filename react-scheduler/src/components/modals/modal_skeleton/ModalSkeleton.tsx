@@ -14,7 +14,9 @@ export const ModalSkeleton = (props: ModalSkeletonProps) => {
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
           <h2 className={styles.title}>{title}</h2>
-          <i onClick={handleModalClose} className={styles.icon} />{" "}
+          <i onClick={handleModalClose} className={styles.icon}>
+            x
+          </i>
           {/* TODO: Add a suitable icon*/}
         </div>
         <div className={styles.modalContents}>{children}</div>

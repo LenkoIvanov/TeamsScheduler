@@ -1,5 +1,5 @@
 .startTime {
-  color: black;
+  color: var(--light-blue);
   padding: 5px;
 }
 
@@ -10,7 +10,7 @@
   gap: 0.5rem;
 
   span {
-    color: black;
+    color: var(--light-blue);
   }
 
   select {
@@ -18,7 +18,7 @@
     height: 25px;
 
     &:focus-visible {
-      outline: black auto 1px;
+      outline: var(--light-blue) auto 1px;
     }
   }
 }
