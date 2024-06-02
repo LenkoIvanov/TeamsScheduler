@@ -1,0 +1,21 @@
+.scheduler {
+  overflow: auto;
+  margin: auto;
+  position: relative;
+  color: var(--white);
+  width: 100%;
+  height: 600px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgray;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: slategray;
+    }
+  }
+}
