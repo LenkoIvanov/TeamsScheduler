@@ -32,7 +32,7 @@ export const InfoSection = (props: InfoSectionProps) => {
           Room: <span className={styles.roomName}>{roomName}</span>
         </p>
         <p>
-          Status:{" "}
+          Status:
           <span
             className={`${
               currentEvent ? styles.status__booked : styles.status__free
