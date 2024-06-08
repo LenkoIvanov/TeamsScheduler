@@ -16,7 +16,7 @@ export const Button = (props: ButtonProps) => {
   };
   return (
     <div
-      className={`${styles.button} ${styles.isDisabled}`}
+      className={`${styles.button} ${disabled ? styles.isDisabled : ""}`}
       onClick={handleClick}
       data-theme={theme}
     >

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import { EventInfo } from "../../types/EventInfo";
 import { handleTimeUntilFree } from "../../helpers/room_status_helper";
 import styles from "./RoomStatus.module.scss";
@@ -19,11 +19,15 @@ export const RoomStatus = (props: RoomStatusProps) => {
 
   const [progressBarValue, setProgressBarValue] = useState<number>(100);
 
-  const resetRoomState = useCallback(() => {
-    setProgressBarValue(initProgressBarValue);
-  }, []);
+  useEffect(() => {
+    if (currentEvent === null) resetRoomState();
+  }, [currentEvent]);
 
-  const handleProgressBarUpdate = useCallback(() => {
+  const resetRoomState = () => {
+    setProgressBarValue(initProgressBarValue);
+  };
+
+  const handleProgressBarUpdate = () => {
     if (!currentEvent) return;
     const { minutesUntilFree, totalMeetingTime } = handleTimeUntilFree(
       currentEvent,
@@ -34,12 +38,8 @@ export const RoomStatus = (props: RoomStatusProps) => {
         (initProgressBarValue * minutesUntilFree) / totalMeetingTime
     );
 
-    if (value >= 100) {
-      resetRoomState();
-    } else {
-      if (value !== progressBarValue) setProgressBarValue(value);
-    }
-  }, [currentEvent, currentMoment, progressBarValue, resetRoomState]);
+    if (value <= 100 && value !== progressBarValue) setProgressBarValue(value);
+  };
 
   handleProgressBarUpdate();
   return (

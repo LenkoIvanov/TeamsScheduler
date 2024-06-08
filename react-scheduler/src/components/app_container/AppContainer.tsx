@@ -6,7 +6,10 @@ import styles from "./AppContainer.module.scss";
 import { createNewEvent, fetchTeamsEvents } from "../../api/http/rest";
 import { useEffect, useState } from "react";
 import { EventInfo } from "../../types/EventInfo";
-import { getOngoingEventIdx } from "../../helpers/room_status_helper";
+import {
+  getOngoingEventIdx,
+  handleTimeUntilFree,
+} from "../../helpers/room_status_helper";
 import { NewMeetingModal } from "../modals/new_meeting_modal/NewMeetingModal";
 
 export const AppContainer = () => {
@@ -50,8 +53,17 @@ export const AppContainer = () => {
   };
 
   setInterval(() => {
-    setCurrentMoment(new Date());
-  }, 60000);
+    const newMoment = new Date();
+    if (currentEvent) {
+      const timeUntilCurrentEventFinale = handleTimeUntilFree(
+        currentEvent,
+        newMoment
+      );
+      if (timeUntilCurrentEventFinale.minutesUntilFree === 0)
+        setCurrentEvent(null);
+    }
+    setCurrentMoment(newMoment);
+  }, 15000);
 
   useEffect(() => {
     if (currentEvent || !data) return;
