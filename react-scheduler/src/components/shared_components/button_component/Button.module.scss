@@ -13,6 +13,11 @@
     &:hover {
       background-color: var(--dark-purple);
     }
+
+    &.isDisabled {
+      background-color: var(--dark-purple);
+      cursor: not-allowed;
+    }
   }
 
   &[data-theme="green"] {
@@ -20,6 +25,11 @@
 
     &:hover {
       background-color: var(--dark-green);
+    }
+
+    &.isDisabled {
+      background-color: var(--dark-green);
+      cursor: not-allowed;
     }
   }
 }

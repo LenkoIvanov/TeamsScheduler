@@ -4,12 +4,22 @@ interface ButtonProps {
   content: string;
   onClick: () => void;
   theme: "purple" | "green";
+  disabled: boolean;
 }
 
 export const Button = (props: ButtonProps) => {
-  const { content, theme, onClick } = props;
+  const { content, theme, disabled, onClick } = props;
+
+  const handleClick = () => {
+    if (disabled) return;
+    onClick();
+  };
   return (
-    <div className={styles.button} onClick={onClick} data-theme={theme}>
+    <div
+      className={`${styles.button} ${styles.isDisabled}`}
+      onClick={handleClick}
+      data-theme={theme}
+    >
       {content}
     </div>
   );

@@ -4,21 +4,19 @@ import App from "./App.tsx";
 import { Msal2Provider } from "@microsoft/mgt-msal2-provider";
 import { Providers } from "@microsoft/mgt-element";
 import "./index.scss";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 Providers.globalProvider = new Msal2Provider({
   clientId: import.meta.env.VITE_CLIENT_ID,
-  scopes: [
-    "calendars.read",
-    "user.read",
-    "openid",
-    "profile",
-    "people.read",
-    "user.readbasic.all",
-  ],
+  scopes: ["calendars.read", "calendars.readwrite", "user.read"],
 });
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>
 );

@@ -1,15 +1,13 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { EventInfo } from "../../types/EventInfo";
-import {
-  getOngoingEventIdx,
-  handleTimeUntilFree,
-} from "../../helpers/room_status_helper";
+import { handleTimeUntilFree } from "../../helpers/room_status_helper";
 import styles from "./RoomStatus.module.scss";
 import { ColorWaves } from "./color_waves/ColorWaves";
 import { ProgressBar } from "./progress_bar/ProgressBar";
 
 interface RoomStatusProps {
   events: EventInfo[];
+  currentEvent: EventInfo | null;
   currentMoment: Date;
   isLoading: boolean;
   isError: boolean;
@@ -17,17 +15,15 @@ interface RoomStatusProps {
 
 export const RoomStatus = (props: RoomStatusProps) => {
   const initProgressBarValue = 100;
-  const { events, currentMoment, isLoading, isError } = props;
+  const { currentEvent, currentMoment, isLoading, isError } = props;
 
-  const [currentEvent, setCurrentEvent] = useState<EventInfo | null>(null);
   const [progressBarValue, setProgressBarValue] = useState<number>(100);
 
-  const resetRoomState = () => {
-    setCurrentEvent(null);
+  const resetRoomState = useCallback(() => {
     setProgressBarValue(initProgressBarValue);
-  };
+  }, []);
 
-  const handleProgressBarUpdate = () => {
+  const handleProgressBarUpdate = useCallback(() => {
     if (!currentEvent) return;
     const { minutesUntilFree, totalMeetingTime } = handleTimeUntilFree(
       currentEvent,
@@ -43,15 +39,8 @@ export const RoomStatus = (props: RoomStatusProps) => {
     } else {
       if (value !== progressBarValue) setProgressBarValue(value);
     }
-  };
+  }, [currentEvent, currentMoment, progressBarValue, resetRoomState]);
 
-  const handleRoomAvailability = () => {
-    if (currentEvent) return;
-    const currentEventIdx = getOngoingEventIdx(events);
-    if (currentEventIdx !== -1) setCurrentEvent(events[currentEventIdx]);
-  };
-
-  handleRoomAvailability();
   handleProgressBarUpdate();
   return (
     <div className={styles.roomStatusWrapper}>
