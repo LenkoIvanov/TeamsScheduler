@@ -1,4 +1,9 @@
-import { differenceInMinutes, isWithinInterval } from "date-fns";
+import {
+  differenceInMinutes,
+  isSameMinute,
+  isWithinInterval,
+  setSeconds,
+} from "date-fns";
 import { EventInfo } from "../types/EventInfo";
 
 export interface EventOffset {
@@ -34,6 +39,20 @@ export const calculateSingularEventOffset = (event: EventInfo): EventOffset => {
   };
 };
 
+export const isEventWithinInterval = (
+  eventToCheck: EventInfo,
+  eventForInterval: EventInfo
+): boolean => {
+  const eventToCheckStart = setSeconds(eventToCheck.startTime, 0);
+  const eventIntervalEnd = setSeconds(eventForInterval.endTime, 0);
+  if (isSameMinute(eventToCheckStart, eventIntervalEnd)) return false;
+
+  return isWithinInterval(eventToCheck.startTime, {
+    start: eventForInterval.startTime,
+    end: eventForInterval.endTime,
+  });
+};
+
 export const calculateGroupEventOffset = (
   event: EventInfo,
   firstElementTop: number
@@ -56,10 +75,10 @@ export const getLastConcurrentEventIdx = (
 
   const isNextEventWithinCurrent =
     currentEventIdx !== allEvents.length - 1 &&
-    isWithinInterval(allEvents[currentEventIdx + 1].startTime, {
-      start: allEvents[currentEventIdx].startTime,
-      end: allEvents[currentEventIdx].endTime,
-    });
+    isEventWithinInterval(
+      allEvents[currentEventIdx + 1],
+      allEvents[currentEventIdx]
+    );
 
   if (isNextEventWithinCurrent) {
     lastConcurrentIdx = currentEventIdx + 1;
@@ -69,13 +88,11 @@ export const getLastConcurrentEventIdx = (
   for (let i = lastConcurrentIdx; i < allEvents.length; i++) {
     for (let j = 0; j < concurrentEventsIndeces.length; j++) {
       const concurrentEventIdx = concurrentEventsIndeces[j];
-      const isWithinConcurrentEvents = isWithinInterval(
-        allEvents[i].startTime,
-        {
-          start: allEvents[concurrentEventIdx].startTime,
-          end: allEvents[concurrentEventIdx].endTime,
-        }
+      const isWithinConcurrentEvents = isEventWithinInterval(
+        allEvents[i],
+        allEvents[concurrentEventIdx]
       );
+
       if (isWithinConcurrentEvents) {
         lastConcurrentIdx = i;
         concurrentEventsIndeces.push(i);
