@@ -1,4 +1,4 @@
-export interface GraphEventInfo {
+export interface APIEventInfo {
   subject: string;
   organizer: string;
   startTime: string;

@@ -3,7 +3,7 @@ import { InfoSection } from "../info_section/InfoSection";
 import { RoomStatus } from "../room_status/RoomStatus";
 import { Scheduler } from "../scheduler/scheduler_component/Scheduler";
 import styles from "./AppContainer.module.scss";
-import { createNewEvent, fetchTeamsEvents } from "../../api/http/rest";
+import { createNewEvent, fetchEvents } from "../../api/http/rest";
 import { useEffect, useState } from "react";
 import { EventInfo } from "../../types/EventInfo";
 import {
@@ -24,7 +24,7 @@ export const AppContainer = () => {
 
   const { data, status } = useQuery({
     queryKey: [eventsQueryKey],
-    queryFn: fetchTeamsEvents,
+    queryFn: fetchEvents,
     refetchInterval: 300000,
     retry: 1,
   });
@@ -90,7 +90,7 @@ export const AppContainer = () => {
         <InfoSection
           currentEvent={currentEvent}
           events={data || []}
-          roomName="Conference room"
+          roomName={import.meta.env.VITE_ROOM_NAME.toUpperCase()}
           isError={isErrorState}
           isLoading={isLoadingState}
           onCreateBtnClick={() => setShowNewMeetingModal(true)}
