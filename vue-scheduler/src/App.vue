@@ -1,18 +1,20 @@
 <script setup lang="ts">
-  import { fetchEvents } from './api/rest';
-
-  const data = await fetchEvents();
-  console.log(data);
+  import  HeaderComponent  from "./components/header_component/HeaderComponent.vue"
 </script>
 
 <template>
-  <header>
-  </header>
-
-  <main>
-    Hello World
-  </main>
+  <div :class="$style.app">
+    <HeaderComponent />
+    <h1>Hello World</h1>
+  </div>
 </template>
 
-<style scoped>
+<style lang="scss" module>
+  .app {
+    height: calc(100vh - calc(2 * var(--page-p)));
+
+    & > * {
+      margin-bottom: var(--item-gap-size);
+    }
+  }
 </style>

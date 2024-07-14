@@ -1,6 +1,54 @@
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+
+  --light-blue: #9eddff;
+  --dark-blue: #6499e9;
+  --dark-red: #a0153e;
+  --light-red: #ff204e;
+  --dark-green: #157f76;
+  --light-green: #2fddce;
+  --light-purple: #836fff;
+  --dark-purple: #211951;
+  --white: #fffffb;
+
+  --item-gap-size: 1.25rem;
+  --page-p: 1rem;
+  --hour-in-px: 120px;
+
+  margin: 0;
+  background-color: var(--dark-purple);
+}
+
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  width: 100%;
+  max-width: 1400px;
+  padding: var(--page-p);
+  margin: auto;
+  color: var(--white);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+}
+
+input,
+button {
+  font: inherit;
+}
+
+/* Removes all default styles for a button with a class */
+:where(button[class]) {
+  all: unset;
 }
