@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { EventInfo } from '@/types/EventInfo';
+import EventComponent from './EventComponent.vue';
 
 interface SingularEventWrapperProps {
   topOffset: number;
@@ -13,7 +14,7 @@ const { topOffset, eventHeight, eventInfo } = props;
 
 <template>
   <div :class="$style.eventWrapper" :style="{ top: `${topOffset}px`, height: `${eventHeight}px` }">
-    <Event :eventInfo="eventInfo" />
+    <EventComponent :eventInfo="eventInfo" />
   </div>
 </template>
 

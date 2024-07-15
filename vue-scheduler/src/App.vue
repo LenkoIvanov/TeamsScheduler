@@ -8,6 +8,8 @@ import { ref } from 'vue';
 import type { EventInfo } from './types/EventInfo';
 import NewMeetingModal from './components/modal_components/NewMeetingModal.vue';
 import InfoComponent from './components/info_component/InfoComponent.vue';
+import SchedulerComponent from './components/scheduler_components/SchedulerComponent.vue';
+import { TestData } from './helpers/constants';
 
 const showModal = ref(false);
 
@@ -49,6 +51,7 @@ const testEventInfo: EventInfo = {
       :is-loading="false"
       @booking-modal-show="handleModalOpen"
     />
+    <SchedulerComponent :events="TestData" />
   </div>
 </template>
 
