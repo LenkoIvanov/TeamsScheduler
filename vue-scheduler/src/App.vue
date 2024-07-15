@@ -1,65 +1,52 @@
 <script setup lang="ts">
 import HeaderComponent from './components/header_component/HeaderComponent.vue';
-import ButtonComponent from './components/common_components/ButtonComponent.vue';
-import LoadingComponent from './components/common_components/LoadingComponent.vue';
-import ModalSkeleton from './components/modal_components/ModalSkeleton.vue';
-import MeetingInfoModal from './components/modal_components/MeetingInfoModal.vue';
-import { ref } from 'vue';
-import type { EventInfo } from './types/EventInfo';
 import NewMeetingModal from './components/modal_components/NewMeetingModal.vue';
 import InfoComponent from './components/info_component/InfoComponent.vue';
 import SchedulerComponent from './components/scheduler_components/SchedulerComponent.vue';
 import RoomStatus from './components/room_status_components/RoomStatus.vue';
 import { TestData } from './helpers/constants';
+import { ref } from 'vue';
 
-const showModal = ref(false);
+const showNewMeetingModal = ref(false);
 
 const handleModalOpen = () => {
-  showModal.value = true;
+  showNewMeetingModal.value = true;
 };
 const handleModalClose = () => {
-  showModal.value = false;
+  showNewMeetingModal.value = false;
 };
 const handleEventCreate = (minutes: number) => {
-  showModal.value = false;
+  showNewMeetingModal.value = false;
   console.log('create event for ', minutes);
-};
-
-const testEventInfo: EventInfo = {
-  subject: 'TestData',
-  organizer: 'Test',
-  startTime: new Date(),
-  endTime: new Date()
 };
 </script>
 
 <template>
   <div :class="$style.app">
     <HeaderComponent />
-    <h1>Hello World</h1>
-    <ButtonComponent content="Test" theme="green" :disabled="false" @btn-click="handleModalOpen" />
-    <LoadingComponent />
     <NewMeetingModal
-      v-if="showModal"
+      v-if="showNewMeetingModal"
       @modal-close="handleModalClose"
       @event-create="handleEventCreate"
     />
-    <InfoComponent
-      :events="[]"
-      :current-event="null"
-      room-name="Schlupfloch"
-      :is-error="false"
-      :is-loading="false"
-      @booking-modal-show="handleModalOpen"
-    />
-    <SchedulerComponent :events="TestData" />
-    <RoomStatus
-      :events="[]"
-      :currentEvent="null"
-      :currentMoment="new Date()"
-      :isLoading="false"
-      :isError="false"
-    />
+    <div :class="$style.mainContainer">
+      <RoomStatus
+        :events="[]"
+        :currentEvent="null"
+        :currentMoment="new Date()"
+        :isLoading="false"
+        :isError="false"
+      />
+      <InfoComponent
+        :events="[]"
+        :current-event="null"
+        room-name="Schlupfloch"
+        :is-error="false"
+        :is-loading="false"
+        @booking-modal-show="handleModalOpen"
+      />
+      <SchedulerComponent :events="TestData" />
+    </div>
   </div>
 </template>
 
@@ -69,6 +56,12 @@ const testEventInfo: EventInfo = {
 
   & > * {
     margin-bottom: var(--item-gap-size);
+  }
+
+  .mainContainer {
+    display: grid;
+    grid-template-columns: 1fr 0.25fr 0.75fr;
+    gap: 1rem;
   }
 }
 </style>
