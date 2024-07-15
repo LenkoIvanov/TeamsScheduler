@@ -1,21 +1,39 @@
 <script setup lang="ts">
+import { handleTimeUntilFree } from '@/helpers/room_status_helper';
 import ColorWaves from './ColorWaves.vue';
 import ProgressBar from './progress_bar_components/ProgressBar.vue';
 import type { EventInfo } from '@/types/EventInfo';
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 interface RoomStatusProps {
-  events: EventInfo[];
   currentEvent: EventInfo | null;
   currentMoment: Date;
   isLoading: boolean;
   isError: boolean;
 }
 const props = defineProps<RoomStatusProps>();
-const { events, currentEvent, currentMoment, isLoading, isError } = props;
+const { currentEvent, currentMoment, isLoading, isError } = props;
 
 const initProgressBarValue = 100;
 const progressBarValue = ref(100);
+
+watchEffect(() => {
+  if (currentEvent === null) {
+    progressBarValue.value = initProgressBarValue;
+  }
+});
+
+const handleProgressBarUpdate = () => {
+  if (!currentEvent) return;
+  const { minutesUntilFree, totalMeetingTime } = handleTimeUntilFree(currentEvent, currentMoment);
+  const value = Math.round(
+    initProgressBarValue - (initProgressBarValue * minutesUntilFree) / totalMeetingTime
+  );
+
+  if (value <= 100 && value !== progressBarValue.value) progressBarValue.value = value;
+};
+
+handleProgressBarUpdate();
 </script>
 
 <template>
