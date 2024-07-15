@@ -56,6 +56,7 @@ export const NewMeetingModal = (props: NewMeetingModalProps) => {
           onClick={() => createRoomEvent(selectedOption)}
           content="Book now"
           theme="green"
+          disabled={false}
         ></Button>
       </div>
     </ModalSkeleton>

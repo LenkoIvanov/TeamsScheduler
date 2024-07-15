@@ -6,6 +6,7 @@ import ModalSkeleton from './components/modal_components/ModalSkeleton.vue';
 import MeetingInfoModal from './components/modal_components/MeetingInfoModal.vue';
 import { ref } from 'vue';
 import type { EventInfo } from './types/EventInfo';
+import NewMeetingModal from './components/modal_components/NewMeetingModal.vue';
 
 const showModal = ref(false);
 
@@ -14,6 +15,10 @@ const handleModalOpen = () => {
 };
 const handleModalClose = () => {
   showModal.value = false;
+};
+const handleEventCreate = (minutes: number) => {
+  showModal.value = false;
+  console.log('create event for ', minutes);
 };
 
 const testEventInfo: EventInfo = {
@@ -30,9 +35,12 @@ const testEventInfo: EventInfo = {
     <h1>Hello World</h1>
     <ButtonComponent content="Test" theme="green" :disabled="false" @btn-click="handleModalOpen" />
     <LoadingComponent />
-    <MeetingInfoModal v-if="showModal" :eventInfo="testEventInfo" @modal-close="handleModalClose">
-      <template v-slot:children> Im a child </template>
-    </MeetingInfoModal>
+    <NewMeetingModal
+      v-if="showModal"
+      @modal-close="handleModalClose"
+      @event-create="handleEventCreate"
+    >
+    </NewMeetingModal>
   </div>
 </template>
 
