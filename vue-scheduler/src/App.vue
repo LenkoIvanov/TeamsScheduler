@@ -7,6 +7,7 @@ import MeetingInfoModal from './components/modal_components/MeetingInfoModal.vue
 import { ref } from 'vue';
 import type { EventInfo } from './types/EventInfo';
 import NewMeetingModal from './components/modal_components/NewMeetingModal.vue';
+import InfoComponent from './components/info_component/InfoComponent.vue';
 
 const showModal = ref(false);
 
@@ -39,8 +40,15 @@ const testEventInfo: EventInfo = {
       v-if="showModal"
       @modal-close="handleModalClose"
       @event-create="handleEventCreate"
-    >
-    </NewMeetingModal>
+    />
+    <InfoComponent
+      :events="[]"
+      :current-event="null"
+      room-name="Schlupfloch"
+      :is-error="false"
+      :is-loading="false"
+      @booking-modal-show="handleModalOpen"
+    />
   </div>
 </template>
 
