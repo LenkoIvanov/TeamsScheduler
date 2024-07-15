@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
-
 interface ButtonProps {
   content: string;
   theme: 'purple' | 'green';

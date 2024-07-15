@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { EventInfo } from '@/types/EventInfo';
-import { defineProps } from 'vue';
 import ButtonComponent from '../common_components/ButtonComponent.vue';
 import { roomStatusMessage } from '@/helpers/room_status_helper';
 

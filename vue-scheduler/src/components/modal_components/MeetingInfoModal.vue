@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
 import type { EventInfo } from '@/types/EventInfo';
 import ModalSkeleton from './ModalSkeleton.vue';
 import { format } from 'date-fns';

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ModalSkeleton from './ModalSkeleton.vue';
 import ButtonComponent from '../common_components/ButtonComponent.vue';
-import { defineEmits, ref } from 'vue';
+import { ref } from 'vue';
 import { format } from 'date-fns';
 import { oneMinuteInMiliseconds } from '@/helpers/constants';
 
