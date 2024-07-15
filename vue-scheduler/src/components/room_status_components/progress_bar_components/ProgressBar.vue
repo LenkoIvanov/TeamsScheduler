@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import RadialSeparators from './RadialSeparators.vue';
 import LoadingComponent from '@/components/common_components/LoadingComponent.vue';
+import CircleProgress from 'vue3-circle-progress';
 
 interface ProgressBarProps {
   value: number;
@@ -15,7 +16,8 @@ const { value, isBooked, isLoading, isError } = props;
 <template>
   <!-- Wrap circular progress bar -->
   <div :class="$style.progressBar">
-    <!-- <RadialSeparators :count="60" /> -->
+    <CircleProgress :percent="value" :class="$style.circularBar"></CircleProgress>
+    <RadialSeparators :count="60" />
     <div :class="$style.statusContainer">
       <LoadingComponent v-if="isLoading" />
       <p v-else-if="isError" :class="$style.errorMsg">An error has occurred!</p>
@@ -36,8 +38,17 @@ const { value, isBooked, isLoading, isError } = props;
   border-radius: 50%;
   overflow: hidden;
 
+  .circularBar {
+    width: 95% !important;
+    height: 95% !important;
+  }
+
   .statusContainer {
-    z-index: 2;
+    z-index: 10;
+    position: relative;
+    top: -150%;
+    left: 50%;
+    transform: translate(-10%, 0);
 
     p {
       font-size: 32px;

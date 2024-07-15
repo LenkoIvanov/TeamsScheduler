@@ -19,7 +19,8 @@
     "axios": "^1.7.2",
     "date-fns": "^3.6.0",
     "sass": "^1.77.6",
-    "vue": "^3.4.29"
+    "vue": "^3.4.29",
+    "vue3-circle-progress": "^1.0.7"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",

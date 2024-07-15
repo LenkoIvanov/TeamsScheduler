@@ -13,9 +13,22 @@ const separatorKeys = Array.from(Array(countForMirroringSeparators).keys());
 </script>
 
 <template>
-  <SeparatorComponent
-    v-for="(key, idx) in separatorKeys"
-    :key="idx"
-    :turns="idx * turns"
-  ></SeparatorComponent>
+  <div :class="$style.radialSeparatorsContainer">
+    <SeparatorComponent
+      v-for="(key, idx) in separatorKeys"
+      :key="idx"
+      :turns="idx * turns"
+    ></SeparatorComponent>
+  </div>
 </template>
+
+<style lang="scss" module>
+.radialSeparatorsContainer {
+  position: relative;
+  width: 95%;
+  height: 100%;
+  top: -50%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+}
+</style>
