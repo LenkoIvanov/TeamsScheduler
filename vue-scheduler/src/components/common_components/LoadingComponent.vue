@@ -1,8 +1,7 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <p :class="$style.loadingAnimation">Loading...</p>
+  <p :class="$style.loadingAnimation">Loading...</p>
 </template>
 
 <style lang="scss" module>

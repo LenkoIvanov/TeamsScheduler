@@ -1,34 +1,35 @@
 <script setup lang="ts">
-  import { format } from "date-fns";
-  const currentDate = new Date();
+import { format } from 'date-fns';
+const currentDate = new Date();
 </script>
 
 <template>
-    <div :class="$style.header">
-      <div :class="$style.dateInfo">
-        <p :class="$style.date">{{format(currentDate, "dd.MM.yyyy")}}</p>
-        <p>{{format(currentDate, "eeee")}}</p> <!--- Returns day of week --->
-      </div>
+  <div :class="$style.header">
+    <div :class="$style.dateInfo">
+      <p :class="$style.date">{{ format(currentDate, 'dd.MM.yyyy') }}</p>
+      <!--- Returns day of week --->
+      <p>{{ format(currentDate, 'eeee') }}</p>
     </div>
+  </div>
 </template>
 
 <style lang="scss" module>
-  .header {
-    display: flex;
-    align-items: center;
+.header {
+  display: flex;
+  align-items: center;
 
-    .dateInfo {
-      margin-left: auto;
-      text-align: end;
-      color: var(--white);
+  .dateInfo {
+    margin-left: auto;
+    text-align: end;
+    color: var(--white);
 
-      p {
-        margin: auto;
-      }
+    p {
+      margin: auto;
+    }
 
-      .date {
-        color: var(--light-blue);
-      }
+    .date {
+      color: var(--light-blue);
     }
   }
+}
 </style>

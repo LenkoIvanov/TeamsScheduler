@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { defineProps, defineEmits } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface ModalSkeletonProps {
   title: string;
 }
 
 const props = defineProps<ModalSkeletonProps>();
-const emits = defineEmits(["modal-close"]);
+const emits = defineEmits(['modal-close']);
 </script>
 
 <template>
-     <div :class="$style.backdrop" @click="emits('modal-close')"></div>
-      <div :class="$style.modal">
-        <div :class="$style.modalHeader">
-          <h2 :class="$style.title">{{props.title}}</h2>
-          <FontAwesomeIcon :icon="faXmark" :class="$style.icon" @click="emits('modal-close')"/>
-        </div>
-        <div :class="$style.modalContents">
-            <slot name="children"></slot>
-        </div>
-      </div>
+  <div :class="$style.backdrop" @click="emits('modal-close')"></div>
+  <div :class="$style.modal">
+    <div :class="$style.modalHeader">
+      <h2 :class="$style.title">{{ props.title }}</h2>
+      <FontAwesomeIcon :icon="faXmark" :class="$style.icon" @click="emits('modal-close')" />
+    </div>
+    <div :class="$style.modalContents">
+      <slot name="children"></slot>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" module>
