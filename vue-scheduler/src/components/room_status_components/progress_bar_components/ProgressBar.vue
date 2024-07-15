@@ -16,7 +16,12 @@ const { value, isBooked, isLoading, isError } = props;
 <template>
   <!-- Wrap circular progress bar -->
   <div :class="$style.progressBar">
-    <CircleProgress :percent="value" :class="$style.circularBar"></CircleProgress>
+    <CircleProgress
+      :percent="value"
+      :class="$style.circularBar"
+      :border-width="10"
+      :border-bg-width="10"
+    ></CircleProgress>
     <RadialSeparators :count="60" />
     <div :class="$style.statusContainer">
       <LoadingComponent v-if="isLoading" />
@@ -41,14 +46,18 @@ const { value, isBooked, isLoading, isError } = props;
   .circularBar {
     width: 95% !important;
     height: 95% !important;
+    left: 4%;
   }
 
   .statusContainer {
-    z-index: 10;
     position: relative;
-    top: -150%;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    top: -100%;
     left: 50%;
-    transform: translate(-10%, 0);
+    transform: translate(-50%, -50%);
+    text-align: center;
 
     p {
       font-size: 32px;

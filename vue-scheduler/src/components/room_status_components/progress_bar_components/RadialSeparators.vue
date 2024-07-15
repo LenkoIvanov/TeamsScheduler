@@ -25,10 +25,10 @@ const separatorKeys = Array.from(Array(countForMirroringSeparators).keys());
 <style lang="scss" module>
 .radialSeparatorsContainer {
   position: relative;
-  width: 95%;
+  width: 100%;
   height: 100%;
   top: -50%;
-  left: 95%;
+  left: 100%;
   transform: translate(-50%, -50%);
 }
 </style>
