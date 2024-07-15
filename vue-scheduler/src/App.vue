@@ -9,6 +9,7 @@ import type { EventInfo } from './types/EventInfo';
 import NewMeetingModal from './components/modal_components/NewMeetingModal.vue';
 import InfoComponent from './components/info_component/InfoComponent.vue';
 import SchedulerComponent from './components/scheduler_components/SchedulerComponent.vue';
+import RoomStatus from './components/room_status_components/RoomStatus.vue';
 import { TestData } from './helpers/constants';
 
 const showModal = ref(false);
@@ -52,6 +53,13 @@ const testEventInfo: EventInfo = {
       @booking-modal-show="handleModalOpen"
     />
     <SchedulerComponent :events="TestData" />
+    <RoomStatus
+      :events="[]"
+      :currentEvent="null"
+      :currentMoment="new Date()"
+      :isLoading="false"
+      :isError="false"
+    />
   </div>
 </template>
 

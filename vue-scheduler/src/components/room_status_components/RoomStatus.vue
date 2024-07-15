@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ColorWaves from './ColorWaves.vue';
+import ProgressBar from './progress_bar_components/ProgressBar.vue';
 import type { EventInfo } from '@/types/EventInfo';
 import { ref } from 'vue';
 
@@ -20,6 +21,12 @@ const progressBarValue = ref(100);
 <template>
   <div :class="$style.roomStatusWrapper">
     <ColorWaves :isBooked="false" />
+    <ProgressBar
+      :value="progressBarValue"
+      :isLoading="isLoading"
+      :isError="isError"
+      :isBooked="!!currentEvent"
+    />
   </div>
 </template>
 
