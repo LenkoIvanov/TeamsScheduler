@@ -9,7 +9,7 @@ import { reactive, ref, watchEffect } from 'vue';
 import EventComponent from './EventComponent.vue';
 
 interface GroupEventWrapperProps {
-  groupIndices: number[];
+  groupIndeces: number[];
   allEventsInfo: EventInfo[];
 }
 
@@ -20,7 +20,7 @@ interface ConcurrentEventInfo {
 }
 
 const props = defineProps<GroupEventWrapperProps>();
-const { groupIndices, allEventsInfo } = props;
+const { groupIndeces, allEventsInfo } = props;
 
 const groupOffset = ref(0);
 
@@ -29,7 +29,7 @@ const concurrentEventsInfo: ConcurrentEventInfo[] = reactive([]);
 watchEffect(() => {
   let firstElementOffset = 0;
   const eventsInfo: ConcurrentEventInfo[] = [];
-  groupIndices.forEach((eventIndex, iterationIndex) => {
+  groupIndeces.forEach((eventIndex, iterationIndex) => {
     let eventDimensions: EventOffset = { topOffset: 0, eventHeight: 0 };
     if (iterationIndex === 0) {
       eventDimensions = calculateSingularEventOffset(allEventsInfo[eventIndex]);
@@ -55,7 +55,7 @@ watchEffect(() => {
     :class="$style.groupEventWrapper"
     :style="{
       top: `${groupOffset}px`,
-      gridTemplateColumns: `repeat(${groupIndices.length}, minmax(10px, 1fr))`
+      gridTemplateColumns: `repeat(${groupIndeces.length}, minmax(10px, 1fr))`
     }"
   >
     <div
