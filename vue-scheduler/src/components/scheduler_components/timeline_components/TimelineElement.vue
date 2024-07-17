@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { toRefs } from 'vue';
+
 interface TimelineElementProps {
   currentHour: string;
 }
 
 const props = defineProps<TimelineElementProps>();
-const { currentHour } = props;
+const { currentHour } = toRefs(props);
 </script>
 
 <template>

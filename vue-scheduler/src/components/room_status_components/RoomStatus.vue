@@ -3,7 +3,7 @@ import { handleTimeUntilFree } from '@/helpers/room_status_helper';
 import ColorWaves from './ColorWaves.vue';
 import ProgressBar from './progress_bar_components/ProgressBar.vue';
 import type { EventInfo } from '@/types/EventInfo';
-import { ref, watchEffect } from 'vue';
+import { ref, toRefs, watchEffect } from 'vue';
 
 interface RoomStatusProps {
   currentEvent: EventInfo | null;
@@ -12,20 +12,23 @@ interface RoomStatusProps {
   isError: boolean;
 }
 const props = defineProps<RoomStatusProps>();
-const { currentEvent, currentMoment, isLoading, isError } = props;
+const { currentEvent, currentMoment, isLoading, isError } = toRefs(props);
 
 const initProgressBarValue = 100;
 const progressBarValue = ref(100);
 
 watchEffect(() => {
-  if (currentEvent === null) {
+  if (currentEvent.value === null) {
     progressBarValue.value = initProgressBarValue;
   }
 });
 
 const handleProgressBarUpdate = () => {
-  if (!currentEvent) return;
-  const { minutesUntilFree, totalMeetingTime } = handleTimeUntilFree(currentEvent, currentMoment);
+  if (!currentEvent.value) return;
+  const { minutesUntilFree, totalMeetingTime } = handleTimeUntilFree(
+    currentEvent.value,
+    currentMoment.value
+  );
   const value = Math.round(
     initProgressBarValue - (initProgressBarValue * minutesUntilFree) / totalMeetingTime
   );

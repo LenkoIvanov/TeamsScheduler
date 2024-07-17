@@ -2,6 +2,7 @@
 import type { EventInfo } from '@/types/EventInfo';
 import ButtonComponent from '../common_components/ButtonComponent.vue';
 import { roomStatusMessage } from '@/helpers/room_status_helper';
+import { toRefs } from 'vue';
 
 interface InfoSectionProps {
   currentEvent: EventInfo | null;
@@ -11,7 +12,7 @@ interface InfoSectionProps {
   isLoading: boolean;
 }
 const props = defineProps<InfoSectionProps>();
-const { currentEvent, events, roomName, isError, isLoading } = props;
+const { currentEvent, events, roomName, isError, isLoading } = toRefs(props);
 
 const emits = defineEmits(['booking-modal-show']);
 </script>

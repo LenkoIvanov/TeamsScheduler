@@ -5,7 +5,7 @@ import {
   type EventOffset
 } from '@/helpers/scheduler_helper';
 import type { EventInfo } from '@/types/EventInfo';
-import { reactive, ref, watchEffect } from 'vue';
+import { reactive, ref, toRefs, watchEffect } from 'vue';
 import EventComponent from './EventComponent.vue';
 
 interface GroupEventWrapperProps {
@@ -20,7 +20,7 @@ interface ConcurrentEventInfo {
 }
 
 const props = defineProps<GroupEventWrapperProps>();
-const { groupIndeces, allEventsInfo } = props;
+const { groupIndeces, allEventsInfo } = toRefs(props);
 
 const groupOffset = ref(0);
 
@@ -29,14 +29,17 @@ const concurrentEventsInfo: ConcurrentEventInfo[] = reactive([]);
 watchEffect(() => {
   let firstElementOffset = 0;
   const eventsInfo: ConcurrentEventInfo[] = [];
-  groupIndeces.forEach((eventIndex, iterationIndex) => {
+  groupIndeces.value.forEach((eventIndex, iterationIndex) => {
     let eventDimensions: EventOffset = { topOffset: 0, eventHeight: 0 };
     if (iterationIndex === 0) {
-      eventDimensions = calculateSingularEventOffset(allEventsInfo[eventIndex]);
+      eventDimensions = calculateSingularEventOffset(allEventsInfo.value[eventIndex]);
       firstElementOffset = eventDimensions.topOffset;
       groupOffset.value = firstElementOffset;
     } else {
-      eventDimensions = calculateGroupEventOffset(allEventsInfo[eventIndex], firstElementOffset);
+      eventDimensions = calculateGroupEventOffset(
+        allEventsInfo.value[eventIndex],
+        firstElementOffset
+      );
     }
 
     eventsInfo.push({

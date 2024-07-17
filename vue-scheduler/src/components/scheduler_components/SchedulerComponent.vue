@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watchEffect } from 'vue';
+import { onMounted, reactive, toRefs, watch } from 'vue';
 import IndicatorComponent from './IndicatorComponent.vue';
 import TimelineComponent from './timeline_components/TimelineComponent.vue';
 import SingularEventWrapper from './event_components/SingularEventWrapper.vue';
@@ -27,10 +27,10 @@ interface SchedulerProps {
   events: EventInfo[];
 }
 const props = defineProps<SchedulerProps>();
-const { events } = props;
+const { events } = toRefs(props);
 
 // Scroll the IndicatorComponent into view
-watchEffect(() => {
+onMounted(() => {
   const indicatorComponent = document.getElementById(indicatorId);
   if (indicatorComponent)
     indicatorComponent.scrollIntoView({
@@ -43,25 +43,25 @@ watchEffect(() => {
 const singularEventsInfo: SingularEventsInfo[] = reactive([]);
 const groupEventsInfo: GroupEventsInfo[] = reactive([]);
 
-watchEffect(() => {
+watch(events, () => {
   const singularEvents: SingularEventsInfo[] = [];
   const groupEvents: GroupEventsInfo[] = [];
 
   let idxOfLastConcurrentElement = -1;
-  for (let i = 0; i < events.length; i++) {
+  for (let i = 0; i < events.value.length; i++) {
     if (i <= idxOfLastConcurrentElement) continue;
-    const response = getLastConcurrentEventIdx(i, events);
+    const response = getLastConcurrentEventIdx(i, events.value);
     if (response.lastIdx !== -1) {
       idxOfLastConcurrentElement = response.lastIdx;
       groupEvents.push({
-        allEventsInfo: events,
+        allEventsInfo: events.value,
         groupIndeces: response.allIndeces
       });
     } else {
-      const eventDimensions = calculateSingularEventOffset(events[i]);
+      const eventDimensions = calculateSingularEventOffset(events.value[i]);
       singularEvents.push({
         eventDimensions: eventDimensions,
-        eventInfo: events[i],
+        eventInfo: events.value[i],
         eventIdx: i
       });
     }

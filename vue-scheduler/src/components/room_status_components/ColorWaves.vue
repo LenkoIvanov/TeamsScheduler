@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { toRefs } from 'vue';
+
 interface ColorWavesProps {
   isBooked: boolean;
 }
 const props = defineProps<ColorWavesProps>();
-const { isBooked } = props;
+const { isBooked } = toRefs(props);
 </script>
 
 <template>

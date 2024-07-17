@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import RadialSeparators from './RadialSeparators.vue';
 import LoadingComponent from '@/components/common_components/LoadingComponent.vue';
+import { toRefs } from 'vue';
 import CircleProgress from 'vue3-circle-progress';
 
 interface ProgressBarProps {
@@ -10,7 +11,7 @@ interface ProgressBarProps {
   isError: boolean;
 }
 const props = defineProps<ProgressBarProps>();
-const { value, isBooked, isLoading, isError } = props;
+const { value, isBooked, isLoading, isError } = toRefs(props);
 </script>
 
 <template>
@@ -21,6 +22,8 @@ const { value, isBooked, isLoading, isError } = props;
       :class="$style.circularBar"
       :border-width="10"
       :border-bg-width="10"
+      :empty-color="isBooked ? '#ACE1F0' : '#2D3D46'"
+      fill-color="#2D3D46"
     ></CircleProgress>
     <RadialSeparators :count="60" />
     <div :class="$style.statusContainer">

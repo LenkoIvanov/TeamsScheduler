@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import MeetingInfoModal from '@/components/modal_components/MeetingInfoModal.vue';
 import type { EventInfo } from '@/types/EventInfo';
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 
 interface EventProps {
   eventInfo: EventInfo;
 }
 const props = defineProps<EventProps>();
-const { eventInfo } = props;
+const { eventInfo } = toRefs(props);
 
 const showInfoModal = ref(false);
 const handleOpenInfoModal = () => {
