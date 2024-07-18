@@ -15,7 +15,7 @@ const props = defineProps<RoomStatusProps>();
 
 const initProgressBarValue: number = 100;
 const progressBarValue = computed<number>((oldValue) => {
-  if (props.currentEvent === null || !oldValue) return initProgressBarValue;
+  if (props.currentEvent === null || oldValue === undefined) return initProgressBarValue;
 
   const { minutesUntilFree, totalMeetingTime } = handleTimeUntilFree(
     props.currentEvent,
@@ -25,7 +25,10 @@ const progressBarValue = computed<number>((oldValue) => {
     initProgressBarValue - (initProgressBarValue * minutesUntilFree) / totalMeetingTime
   );
 
+  if (value < 0 && value !== oldValue) return 0;
+
   if (value <= 100 && value !== oldValue) return value;
+
   return oldValue;
 });
 </script>

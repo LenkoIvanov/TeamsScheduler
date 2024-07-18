@@ -71,8 +71,6 @@ setInterval(() => {
 watch(
   data,
   (newData) => {
-    console.log('newData', newData);
-
     if (currentEvent.value || !newData) return;
     const currentEventIdx = getOngoingEventIdx(newData);
     if (currentEventIdx !== -1) currentEvent.value = newData[currentEventIdx];
