@@ -5,7 +5,7 @@ import {
   type EventOffset
 } from '@/helpers/scheduler_helper';
 import type { EventInfo } from '@/types/EventInfo';
-import { reactive, ref, toRefs, watchEffect } from 'vue';
+import { reactive, ref, watchEffect } from 'vue';
 import EventComponent from './EventComponent.vue';
 
 interface GroupEventWrapperProps {
@@ -20,7 +20,6 @@ interface ConcurrentEventInfo {
 }
 
 const props = defineProps<GroupEventWrapperProps>();
-const { groupIndeces, allEventsInfo } = toRefs(props);
 
 const groupOffset = ref(0);
 
@@ -29,15 +28,15 @@ const concurrentEventsInfo: ConcurrentEventInfo[] = reactive([]);
 watchEffect(() => {
   let firstElementOffset = 0;
   const eventsInfo: ConcurrentEventInfo[] = [];
-  groupIndeces.value.forEach((eventIndex, iterationIndex) => {
+  props.groupIndeces.forEach((eventIndex, iterationIndex) => {
     let eventDimensions: EventOffset = { topOffset: 0, eventHeight: 0 };
     if (iterationIndex === 0) {
-      eventDimensions = calculateSingularEventOffset(allEventsInfo.value[eventIndex]);
+      eventDimensions = calculateSingularEventOffset(props.allEventsInfo[eventIndex]);
       firstElementOffset = eventDimensions.topOffset;
       groupOffset.value = firstElementOffset;
     } else {
       eventDimensions = calculateGroupEventOffset(
-        allEventsInfo.value[eventIndex],
+        props.allEventsInfo[eventIndex],
         firstElementOffset
       );
     }
@@ -58,7 +57,7 @@ watchEffect(() => {
     :class="$style.groupEventWrapper"
     :style="{
       top: `${groupOffset}px`,
-      gridTemplateColumns: `repeat(${groupIndeces.length}, minmax(10px, 1fr))`
+      gridTemplateColumns: `repeat(${props.groupIndeces.length}, minmax(10px, 1fr))`
     }"
   >
     <div
@@ -69,7 +68,7 @@ watchEffect(() => {
         height: `${event.eventDimensions.eventHeight}px`
       }"
     >
-      <EventComponent :eventInfo="allEventsInfo[event.eventIdx]" />
+      <EventComponent :eventInfo="props.allEventsInfo[event.eventIdx]" />
     </div>
   </div>
 </template>

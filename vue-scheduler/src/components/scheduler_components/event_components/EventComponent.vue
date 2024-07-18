@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import MeetingInfoModal from '@/components/modal_components/MeetingInfoModal.vue';
 import type { EventInfo } from '@/types/EventInfo';
-import { ref, toRefs } from 'vue';
+import { ref } from 'vue';
 
 interface EventProps {
   eventInfo: EventInfo;
 }
 const props = defineProps<EventProps>();
-const { eventInfo } = toRefs(props);
 
 const showInfoModal = ref(false);
 const handleOpenInfoModal = () => {
@@ -21,11 +20,11 @@ const handleCloseInfoModal = () => {
 <template>
   <MeetingInfoModal
     v-if="showInfoModal"
-    :eventInfo="eventInfo"
+    :eventInfo="props.eventInfo"
     @modal-close="handleCloseInfoModal"
   />
   <div @click="handleOpenInfoModal" :class="$style.eventContainer">
-    <p :class="$style.title">{{ eventInfo.subject }}</p>
+    <p :class="$style.title">{{ props.eventInfo.subject }}</p>
   </div>
 </template>
 

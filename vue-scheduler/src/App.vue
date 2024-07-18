@@ -79,7 +79,6 @@ watch(
   },
   { deep: true, immediate: true }
 );
-// console.log('data', data);
 </script>
 
 <template>

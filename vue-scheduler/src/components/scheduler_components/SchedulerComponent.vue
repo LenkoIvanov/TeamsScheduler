@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, toRefs, watch } from 'vue';
+import { computed, onMounted } from 'vue';
 import IndicatorComponent from './IndicatorComponent.vue';
 import TimelineComponent from './timeline_components/TimelineComponent.vue';
 import SingularEventWrapper from './event_components/SingularEventWrapper.vue';
@@ -27,7 +27,6 @@ interface SchedulerProps {
   events: EventInfo[];
 }
 const props = defineProps<SchedulerProps>();
-const { events } = toRefs(props);
 
 // Scroll the IndicatorComponent into view
 onMounted(() => {
@@ -40,35 +39,34 @@ onMounted(() => {
     });
 });
 
-const singularEventsInfo: SingularEventsInfo[] = reactive([]);
-const groupEventsInfo: GroupEventsInfo[] = reactive([]);
-
-watch(events, () => {
+const eventData = computed<{
+  singularEventsInfo: SingularEventsInfo[];
+  groupEventsInfo: GroupEventsInfo[];
+}>(() => {
   const singularEvents: SingularEventsInfo[] = [];
   const groupEvents: GroupEventsInfo[] = [];
 
   let idxOfLastConcurrentElement = -1;
-  for (let i = 0; i < events.value.length; i++) {
+  for (let i = 0; i < props.events.length; i++) {
     if (i <= idxOfLastConcurrentElement) continue;
-    const response = getLastConcurrentEventIdx(i, events.value);
+    const response = getLastConcurrentEventIdx(i, props.events);
     if (response.lastIdx !== -1) {
       idxOfLastConcurrentElement = response.lastIdx;
       groupEvents.push({
-        allEventsInfo: events.value,
+        allEventsInfo: props.events,
         groupIndeces: response.allIndeces
       });
     } else {
-      const eventDimensions = calculateSingularEventOffset(events.value[i]);
+      const eventDimensions = calculateSingularEventOffset(props.events[i]);
       singularEvents.push({
         eventDimensions: eventDimensions,
-        eventInfo: events.value[i],
+        eventInfo: props.events[i],
         eventIdx: i
       });
     }
   }
 
-  singularEventsInfo.splice(0, singularEventsInfo.length, ...singularEvents);
-  groupEventsInfo.splice(0, groupEventsInfo.length, ...groupEvents);
+  return { singularEventsInfo: singularEvents, groupEventsInfo: groupEvents };
 });
 </script>
 
@@ -77,14 +75,14 @@ watch(events, () => {
     <IndicatorComponent />
     <TimelineComponent />
     <SingularEventWrapper
-      v-for="singular in singularEventsInfo"
+      v-for="singular in eventData.singularEventsInfo"
       :key="`event-${singular.eventIdx}`"
       :eventInfo="singular.eventInfo"
       :topOffset="singular.eventDimensions.topOffset"
       :eventHeight="singular.eventDimensions.eventHeight"
     />
     <GroupEventWrapper
-      v-for="group in groupEventsInfo"
+      v-for="group in eventData.groupEventsInfo"
       :key="`group-events-${group.groupIndeces[0]}`"
       :allEventsInfo="group.allEventsInfo"
       :groupIndeces="group.groupIndeces"

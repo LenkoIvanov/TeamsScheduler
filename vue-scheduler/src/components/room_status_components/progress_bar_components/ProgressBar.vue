@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import RadialSeparators from './RadialSeparators.vue';
 import LoadingComponent from '@/components/common_components/LoadingComponent.vue';
-import { toRefs } from 'vue';
 import CircleProgress from 'vue3-circle-progress';
 
 interface ProgressBarProps {
@@ -11,25 +10,25 @@ interface ProgressBarProps {
   isError: boolean;
 }
 const props = defineProps<ProgressBarProps>();
-const { value, isBooked, isLoading, isError } = toRefs(props);
 </script>
 
 <template>
   <!-- Wrap circular progress bar -->
   <div :class="$style.progressBar">
     <CircleProgress
-      :percent="value"
+      :percent="props.value"
       :class="$style.circularBar"
       :border-width="10"
       :border-bg-width="10"
-      :empty-color="isBooked ? '#ACE1F0' : '#2D3D46'"
+      empty-color="#ACE1F0"
       fill-color="#2D3D46"
+      linecap="flat"
     ></CircleProgress>
     <RadialSeparators :count="60" />
     <div :class="$style.statusContainer">
-      <LoadingComponent v-if="isLoading" />
-      <p v-else-if="isError" :class="$style.errorMsg">An error has occurred!</p>
-      <p v-else-if="isBooked" :class="$style.inProgress">Meeting in progress</p>
+      <LoadingComponent v-if="props.isLoading" />
+      <p v-else-if="props.isError" :class="$style.errorMsg">An error has occurred!</p>
+      <p v-else-if="props.isBooked" :class="$style.inProgress">Meeting in progress</p>
       <p v-else :class="$style.available">Available</p>
     </div>
   </div>

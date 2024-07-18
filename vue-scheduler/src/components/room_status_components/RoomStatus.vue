@@ -3,7 +3,7 @@ import { handleTimeUntilFree } from '@/helpers/room_status_helper';
 import ColorWaves from './ColorWaves.vue';
 import ProgressBar from './progress_bar_components/ProgressBar.vue';
 import type { EventInfo } from '@/types/EventInfo';
-import { ref, toRefs, watchEffect } from 'vue';
+import { computed } from 'vue';
 
 interface RoomStatusProps {
   currentEvent: EventInfo | null;
@@ -12,41 +12,32 @@ interface RoomStatusProps {
   isError: boolean;
 }
 const props = defineProps<RoomStatusProps>();
-const { currentEvent, currentMoment, isLoading, isError } = toRefs(props);
 
-const initProgressBarValue = 100;
-const progressBarValue = ref(100);
+const initProgressBarValue: number = 100;
+const progressBarValue = computed<number>((oldValue) => {
+  if (props.currentEvent === null || !oldValue) return initProgressBarValue;
 
-watchEffect(() => {
-  if (currentEvent.value === null) {
-    progressBarValue.value = initProgressBarValue;
-  }
-});
-
-const handleProgressBarUpdate = () => {
-  if (!currentEvent.value) return;
   const { minutesUntilFree, totalMeetingTime } = handleTimeUntilFree(
-    currentEvent.value,
-    currentMoment.value
+    props.currentEvent,
+    props.currentMoment
   );
   const value = Math.round(
     initProgressBarValue - (initProgressBarValue * minutesUntilFree) / totalMeetingTime
   );
 
-  if (value <= 100 && value !== progressBarValue.value) progressBarValue.value = value;
-};
-
-handleProgressBarUpdate();
+  if (value <= 100 && value !== oldValue) return value;
+  return oldValue;
+});
 </script>
 
 <template>
   <div :class="$style.roomStatusWrapper">
-    <ColorWaves :isBooked="false" />
+    <ColorWaves :isBooked="!!props.currentEvent" />
     <ProgressBar
       :value="progressBarValue"
-      :isLoading="isLoading"
-      :isError="isError"
-      :isBooked="!!currentEvent"
+      :isLoading="props.isLoading"
+      :isError="props.isError"
+      :isBooked="!!props.currentEvent"
     />
   </div>
 </template>

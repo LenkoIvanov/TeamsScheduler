@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { toRefs } from 'vue';
-
 interface ColorWavesProps {
   isBooked: boolean;
 }
 const props = defineProps<ColorWavesProps>();
-const { isBooked } = toRefs(props);
 </script>
 
 <template>
   <div :class="$style.colorWaveWrapper">
-    <div :class="[$style.colorWave, $style.firstChild, isBooked ? $style.firstBooked : '']"></div>
+    <div
+      :class="[$style.colorWave, $style.firstChild, props.isBooked ? $style.firstBooked : '']"
+    ></div>
     <div :class="[$style.colorWave, $style.secondChild]"></div>
-    <div :class="[$style.colorWave, $style.thirdChild, isBooked ? $style.thirdBooked : '']"></div>
+    <div
+      :class="[$style.colorWave, $style.thirdChild, props.isBooked ? $style.thirdBooked : '']"
+    ></div>
   </div>
 </template>
 

@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { toRefs } from 'vue';
 import SeparatorComponent from './SeparatorComponent.vue';
 interface RadialSeparatorsProps {
   count: number;
 }
 const props = defineProps<RadialSeparatorsProps>();
-const { count } = toRefs(props);
 
-const countForMirroringSeparators = count.value / 2 - 1;
+const countForMirroringSeparators = props.count / 2 - 1;
 const turns = 1 / countForMirroringSeparators;
 
 const separatorKeys = Array.from(Array(countForMirroringSeparators).keys());

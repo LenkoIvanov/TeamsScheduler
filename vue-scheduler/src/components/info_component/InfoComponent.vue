@@ -2,7 +2,6 @@
 import type { EventInfo } from '@/types/EventInfo';
 import ButtonComponent from '../common_components/ButtonComponent.vue';
 import { roomStatusMessage } from '@/helpers/room_status_helper';
-import { toRefs } from 'vue';
 
 interface InfoSectionProps {
   currentEvent: EventInfo | null;
@@ -12,7 +11,6 @@ interface InfoSectionProps {
   isLoading: boolean;
 }
 const props = defineProps<InfoSectionProps>();
-const { currentEvent, events, roomName, isError, isLoading } = toRefs(props);
 
 const emits = defineEmits(['booking-modal-show']);
 </script>
@@ -20,16 +18,16 @@ const emits = defineEmits(['booking-modal-show']);
 <template>
   <div :class="$style.infoSection">
     <p>
-      Room: <span :class="$style.roomName">{{ roomName }}</span>
+      Room: <span :class="$style.roomName">{{ props.roomName }}</span>
     </p>
     <p>
       Status:
-      <span :class="[currentEvent ? $style.status__booked : $style.status__free]">
-        {{ roomStatusMessage(events, currentEvent).statusMsg }}
+      <span :class="[props.currentEvent ? $style.status__booked : $style.status__free]">
+        {{ roomStatusMessage(props.events, props.currentEvent).statusMsg }}
       </span>
     </p>
     <ButtonComponent
-      :disabled="isError || isLoading || !!currentEvent"
+      :disabled="props.isError || props.isLoading || !!props.currentEvent"
       content="Book now"
       theme="green"
       @btn-click="emits('booking-modal-show')"
