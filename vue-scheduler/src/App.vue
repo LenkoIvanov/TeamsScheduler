@@ -10,6 +10,8 @@ import { createNewEvent, fetchEvents } from './api/rest';
 import type { EventInfo } from './types/EventInfo';
 import { getOngoingEventIdx, handleTimeUntilFree } from './helpers/room_status_helper';
 
+const roomName = String(import.meta.env.VITE_ROOM_NAME).toUpperCase();
+
 const showNewMeetingModal = ref(false);
 const handleModalOpen = () => {
   if (isLoadingState.value || isErrorState.value || currentEvent.value) return;
@@ -98,7 +100,7 @@ watch(
       <InfoComponent
         :events="data || []"
         :current-event="currentEvent"
-        room-name="Schlupfloch"
+        :room-name="roomName"
         :is-error="isErrorState"
         :is-loading="isLoadingState"
         @booking-modal-show="handleModalOpen"
