@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import { oneMinuteInMiliseconds } from '@/helpers/constants';
 import {
   calculateEightAmOffset,
   indicatorId,
   indicatorMaxOffset
 } from '@/helpers/scheduler_helper';
+import { ref } from 'vue';
+
+const currentMoment = ref(new Date());
+setInterval(() => (currentMoment.value = new Date()), oneMinuteInMiliseconds * 2);
 
 const calculateIndicatorOffset = (currentMoment: Date) => {
   const offsetCorrection = 4;
@@ -15,7 +20,7 @@ const calculateIndicatorOffset = (currentMoment: Date) => {
 <template>
   <div
     :id="indicatorId"
-    :style="{ top: `${calculateIndicatorOffset(new Date())}px` }"
+    :style="{ top: `${calculateIndicatorOffset(currentMoment)}px` }"
     :class="$style.indicator"
   >
     <div :class="$style.indicatorCircle"></div>

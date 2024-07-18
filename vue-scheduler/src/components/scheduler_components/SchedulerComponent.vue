@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, onUpdated } from 'vue';
 import IndicatorComponent from './IndicatorComponent.vue';
 import TimelineComponent from './timeline_components/TimelineComponent.vue';
 import SingularEventWrapper from './event_components/SingularEventWrapper.vue';
@@ -28,8 +28,7 @@ interface SchedulerProps {
 }
 const props = defineProps<SchedulerProps>();
 
-// Scroll the IndicatorComponent into view
-onMounted(() => {
+const focusOnIndicator = () => {
   const indicatorComponent = document.getElementById(indicatorId);
   if (indicatorComponent)
     indicatorComponent.scrollIntoView({
@@ -37,7 +36,10 @@ onMounted(() => {
       block: 'nearest',
       inline: 'start'
     });
-});
+};
+// Scroll the IndicatorComponent into view
+onMounted(focusOnIndicator);
+onUpdated(focusOnIndicator);
 
 const eventData = computed<{
   singularEventsInfo: SingularEventsInfo[];
