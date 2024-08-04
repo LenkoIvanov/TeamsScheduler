@@ -2,11 +2,9 @@ import axios, { AxiosResponse } from 'axios';
 import { format } from 'date-fns';
 import {
   fetchCreateRoomEventURL,
-  fetchDeleteRoomEventsURL,
-  fetchGetOneRoomEventURL,
   fetchGetRoomEventsURL
 } from '../constants/msalConfig';
-import { MSGraphEvent, MSGraphEventArrayShema, MSGraphEventShema, MicrosoftMeetingModel } from '../models/MeetingDataModel';
+import { MSGraphEvent, MSGraphEventArrayShema, MicrosoftMeetingModel } from '../models/MeetingDataModel';
 import { ExternalDependencyError, BadRequestError } from '../constants/errors';
 import createLogger from '../constants/logger';
 
@@ -19,7 +17,7 @@ const createHeaders = (accessToken: string) => {
   };
 };
 
-const getDailyRoomEvents = async (page = 0, size = 10, accessToken: string, roomName: string) => {
+const getDailyRoomEvents = async (page = 0, size = 10, accessToken: string) => {
   const top = size;
   const skip = page * size;
   logger.info(`Request to GET ALL daily events, top=${top}, skip=${skip}`);
@@ -31,7 +29,7 @@ const getDailyRoomEvents = async (page = 0, size = 10, accessToken: string, room
   &startDateTime=${format(new Date(), 'yyyy-MM-dd')}T00:00:00.0000000
   &endDateTime=${format(new Date(), 'yyyy-MM-dd')}T23:59:00.0000000`;
 
-  const roomUrl = fetchGetRoomEventsURL(roomName);
+  const roomUrl = fetchGetRoomEventsURL();
   const finalUrl = roomUrl + paramsForFetchAllEvents;
 
   try {
@@ -43,11 +41,11 @@ const getDailyRoomEvents = async (page = 0, size = 10, accessToken: string, room
   }
 };
 
-const createRoomEvent = async (body: MicrosoftMeetingModel, accessToken: string, roomName: string) => {
+const createRoomEvent = async (body: MicrosoftMeetingModel, accessToken: string) => {
   logger.info(`Request to POST event: ${JSON.stringify(body)}`);
 
   const headers = createHeaders(accessToken);
-  const roomEventsUrl = fetchCreateRoomEventURL(roomName);
+  const roomEventsUrl = fetchCreateRoomEventURL();
 
   let response: AxiosResponse;
   try {
@@ -59,39 +57,7 @@ const createRoomEvent = async (body: MicrosoftMeetingModel, accessToken: string,
   }
 };
 
-const deleteRoomEvent = async (accessToken: string, roomName: string, meetingId: string) => {
-  logger.info(`Request to DELETE event: ${meetingId}`);
-
-  const headers = createHeaders(accessToken);
-  const roomEventsUrl = fetchDeleteRoomEventsURL(roomName, meetingId);
-
-  try {
-    const response = await axios.delete(roomEventsUrl, { headers });
-    return response.status;
-  } catch (error) {
-    logger.error('An error has occured while deleting room event: ', error);
-    throw new ExternalDependencyError('Could not delete room event');
-  }
-};
-
-const getOneRoomEvent = async (accessToken: string, roomName: string, meetingId: string) => {
-  logger.info(`Request to GET ONE daily event for room ${roomName}}`);
-
-  const headers = createHeaders(accessToken);
-  const roomUrl = fetchGetOneRoomEventURL(roomName, meetingId);
-
-  try {
-    const response = await axios.get<MSGraphEvent>(roomUrl, { headers });
-    return MSGraphEventShema.parse(response.data);
-  } catch (error) {
-    logger.error('An error has occured while fetching room events: ', error);
-    throw new BadRequestError('Could not fetch room events');
-  }
-};
-
 export default {
   getDailyRoomEvents,
   createRoomEvent,
-  deleteRoomEvent,
-  getOneRoomEvent
 };

@@ -4,14 +4,10 @@ export const accessTokenRequest: ClientCredentialRequest = {
   scopes: ['https://graph.microsoft.com/.default']
 };
 
-export const fetchCreateRoomEventURL = (roomName: string) =>
-  `https://graph.microsoft.com/v1.0/users/${roomName}@blubito.com/calendar/events`;
+const roomName = process.env.ROOM_NAME ?? "";
 
-export const fetchGetRoomEventsURL = (roomName: string) =>
-  `https://graph.microsoft.com/v1.0/users/${roomName}@blubito.com/calendar/`;
+export const fetchCreateRoomEventURL = () =>
+  `https://graph.microsoft.com/v1.0/users/${roomName}/calendar/events`;
 
-export const fetchDeleteRoomEventsURL = (roomName: string, roomMeetingId: string) =>
-  `https://graph.microsoft.com/v1.0/users/${roomName}@blubito.com/calendar/events/${roomMeetingId}`;
-
-export const fetchGetOneRoomEventURL = (roomName: string, roomMeetingId: string) =>
-  `https://graph.microsoft.com/v1.0/users/${roomName}@blubito.com/calendar/events/${roomMeetingId}`;
+export const fetchGetRoomEventsURL = () =>
+  `https://graph.microsoft.com/v1.0/users/${roomName}/calendar/`;
