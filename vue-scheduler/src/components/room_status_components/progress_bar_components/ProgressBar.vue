@@ -76,7 +76,7 @@ const props = defineProps<ProgressBarProps>();
 
     .errorMsg {
       color: var(--light-red);
-      font-size: 28px;
+      font-size: 25px;
     }
   }
 }

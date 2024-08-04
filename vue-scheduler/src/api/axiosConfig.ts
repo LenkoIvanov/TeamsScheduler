@@ -1,4 +1,5 @@
 import axios from "axios";
+import{ toast } from "@steveyuowo/vue-hot-toast";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -14,7 +15,7 @@ axiosInstance.interceptors.response.use(
     if (error.response && error.response.status === 404) {
       msg = "Response not found! Please check the API requests.";
     }
-    console.error(msg);
+    toast.error(msg);
     return error;
   }
 );

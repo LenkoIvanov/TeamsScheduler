@@ -4,11 +4,13 @@ import NewMeetingModal from './components/modal_components/NewMeetingModal.vue';
 import InfoComponent from './components/info_component/InfoComponent.vue';
 import SchedulerComponent from './components/scheduler_components/SchedulerComponent.vue';
 import RoomStatus from './components/room_status_components/RoomStatus.vue';
+import { Toaster } from "@steveyuowo/vue-hot-toast";
 import { computed, ref, watch } from 'vue';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { createNewEvent, fetchEvents } from './api/rest';
 import type { EventInfo } from './types/EventInfo';
 import { getOngoingEventIdx, handleTimeUntilFree } from './helpers/room_status_helper';
+import "@steveyuowo/vue-hot-toast/vue-hot-toast.css";
 
 const roomName = String(import.meta.env.VITE_ROOM_NAME).toUpperCase();
 
@@ -107,6 +109,7 @@ watch(
       />
       <SchedulerComponent :events="data || []" />
     </div>
+    <Toaster />
   </div>
 </template>
 

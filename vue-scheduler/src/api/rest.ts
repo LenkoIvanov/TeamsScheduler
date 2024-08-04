@@ -1,13 +1,14 @@
-import { formatEventInfo } from "@/helpers/rest_helpers";
-import type { APIEventInfo } from "@/types/EventInfo";
-import { add, format } from "date-fns";
-import axiosInstance from "./axiosConfig";
-
+import { formatEventInfo } from '@/helpers/rest_helpers';
+import type { APIEventInfo } from '@/types/EventInfo';
+import { add, format } from 'date-fns';
+import axiosInstance from './axiosConfig';
 
 export const fetchEvents = async () => {
-  const apiData = await axiosInstance.get<APIEventInfo[]>(`/events?roomName=${import.meta.env.VITE_ROOM_NAME}`);
+  const apiData = await axiosInstance.get<APIEventInfo[]>(
+    `/events?roomName=${import.meta.env.VITE_ROOM_NAME}`
+  );
   return formatEventInfo(apiData.data);
-}
+};
 
 export const createNewEvent = async (minutes: number) => {
   const startTime = new Date();
@@ -37,4 +38,4 @@ export const createNewEvent = async (minutes: number) => {
   };
 
   await axiosInstance.post(`/events?roomName=${import.meta.env.VITE_ROOM_NAME}`, newMeetingBody);
-}
+};

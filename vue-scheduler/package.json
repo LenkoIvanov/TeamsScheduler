@@ -16,6 +16,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@steveyuowo/vue-hot-toast": "^1.2.5",
     "@tanstack/vue-query": "^5.51.1",
     "axios": "^1.7.2",
     "date-fns": "^3.6.0",
