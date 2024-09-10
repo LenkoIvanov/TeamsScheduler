@@ -10,6 +10,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { createNewEvent, fetchEvents } from './api/rest';
 import type { EventInfo } from './types/EventInfo';
 import { getOngoingEventIdx, handleTimeUntilFree } from './helpers/room_status_helper';
+import { oneMinuteInMiliseconds } from './helpers/constants';
 import "@steveyuowo/vue-hot-toast/vue-hot-toast.css";
 
 const roomName = String(import.meta.env.VITE_ROOM_NAME).toUpperCase();
@@ -32,7 +33,7 @@ const isMutationLoading = ref(false);
 const { data, status } = useQuery({
   queryKey: [eventsQueryKey],
   queryFn: fetchEvents,
-  refetchInterval: 300000,
+  refetchInterval: oneMinuteInMiliseconds,
   retry: 1
 });
 

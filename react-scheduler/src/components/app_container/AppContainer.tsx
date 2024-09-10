@@ -11,6 +11,7 @@ import {
   handleTimeUntilFree,
 } from "../../helpers/room_status_helper";
 import { NewMeetingModal } from "../modals/new_meeting_modal/NewMeetingModal";
+import { oneMinuteInMiliseconds } from "../../helpers/constants";
 
 export const AppContainer = () => {
   const [currentEvent, setCurrentEvent] = useState<EventInfo | null>(null);
@@ -25,7 +26,7 @@ export const AppContainer = () => {
   const { data, status } = useQuery({
     queryKey: [eventsQueryKey],
     queryFn: fetchEvents,
-    refetchInterval: 300000,
+    refetchInterval: oneMinuteInMiliseconds,
     retry: 1,
   });
 
